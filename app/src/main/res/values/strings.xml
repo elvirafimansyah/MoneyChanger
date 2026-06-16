@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MoneyChanger</string>
+    <string name="title_activity_view_order">ViewOrderActivity</string>
+</resources>
