@@ -155,8 +155,8 @@ object HttpClient {
         return arr
     }
 
-    suspend fun getExchangeRate(originCurrencyRate : Double, targetCurrencyRate : Double, amount : Double) : ExchangeRate? {
-        val res = jsonReq("currency/exchange-rate/${originCurrencyRate}/${targetCurrencyRate}/${amount}")
+    suspend fun getExchangeRate(originCurrencyId : Int, targetCurrencyId : Int, amount : Double) : ExchangeRate? {
+        val res = jsonReq("currency/exchange-rate/${originCurrencyId}/${targetCurrencyId}/${amount}")
         if(res.code != 200 && res.body.isNullOrEmpty()) return null
         val obj = JSONObject(res.body)
 

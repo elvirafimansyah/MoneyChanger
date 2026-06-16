@@ -58,35 +58,25 @@ class MainActivity : ComponentActivity() {
                     var errMsg by remember { mutableStateOf("") }
                     var expandedOrigin by remember { mutableStateOf(false) }
                     var expandedTarget by remember { mutableStateOf(false) }
-                    var currencyOrigin = remember { mutableStateListOf<Currency>() }
-                    var currencyTarget = remember { mutableStateListOf<Currency>() }
+                    var currencies = remember { mutableStateListOf<Currency>() }
                     var selectedOriginCurrency by remember { mutableStateOf<Currency?>(null) }
                     var selectedTargetCurrency by remember { mutableStateOf<Currency?>(null) }
-                    var selectedLastCurrency by remember { mutableStateOf<Currency?>(null) }
-                    var USDRateOrigin by remember { mutableStateOf<USDRate?>(null) }
-                    var USDRateTarget by remember { mutableStateOf<USDRate?>(null) }
                     var exchangeRate by remember { mutableStateOf<ExchangeRate?>(null) }
                     val scope = rememberCoroutineScope()
                     val ctx = LocalContext.current
 
                     LaunchedEffect(Unit) {
                         scope.launch {
-                            currencyOrigin.clear()
-                            currencyOrigin.addAll(HttpClient.getCurrencies())
-
-                            currencyTarget.clear()
-                            currencyTarget.addAll(HttpClient.getCurrencies())
+                            currencies.clear()
+                            currencies.addAll(HttpClient.getCurrencies())
                         }
                     }
                     fun loadConvert() {
                         scope.launch {
                             if(amount != "" && amount.toDouble() > 1) {
                                 if(selectedOriginCurrency != null && selectedTargetCurrency != null) {
-                                    USDRateOrigin = HttpClient.getUSDRateById(selectedOriginCurrency!!.id)
-                                    USDRateTarget = HttpClient.getUSDRateById(selectedTargetCurrency!!.id)
-
-                                    if(USDRateOrigin != null && USDRateTarget != null) {
-                                        exchangeRate = HttpClient.getExchangeRate(USDRateOrigin!!.rate, USDRateTarget!!.rate, amount.toDouble())
+                                    if(selectedOriginCurrency != selectedTargetCurrency) {
+                                        exchangeRate = HttpClient.getExchangeRate(selectedOriginCurrency!!.id, selectedTargetCurrency!!.id, amount.toDouble())
                                     }
                                 }
                             }
@@ -146,20 +136,16 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ) {
-                                Text(selectedOriginCurrency?.abbreviation ?: "")
+                                Text(selectedOriginCurrency?.abbreviation ?: "Select Origin Currency")
                             }
 
                             DropdownMenu(expandedOrigin, {expandedOrigin = false}) {
-                                currencyOrigin.forEachIndexed { index, currency ->
+                                currencies.forEachIndexed { index, currency ->
                                     DropdownMenuItem({Text(currency.abbreviation)}, {
+                                        if(selectedOriginCurrency != null && currency.id == selectedTargetCurrency!!.id) {
+                                            selectedTargetCurrency= selectedOriginCurrency
+                                        }
                                         selectedOriginCurrency = currency
-                                        if(selectedOriginCurrency != selectedTargetCurrency){
-                                            selectedLastCurrency = selectedOriginCurrency
-                                        }
-
-                                        if(selectedTargetCurrency != null && selectedLastCurrency != null && selectedOriginCurrency == selectedTargetCurrency) {
-                                            selectedTargetCurrency = selectedLastCurrency
-                                        }
                                         expandedOrigin = false
                                     })
                                 }
@@ -195,20 +181,16 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ) {
-                                Text(selectedTargetCurrency?.abbreviation ?: "")
+                                Text(selectedTargetCurrency?.abbreviation ?: "Select Target Currency")
                             }
 
                             DropdownMenu(expandedTarget, {expandedTarget = false}) {
-                                currencyOrigin.forEachIndexed { index, currency ->
+                                currencies.forEachIndexed { index, currency ->
                                     DropdownMenuItem({Text(currency.abbreviation)}, {
+                                        if(selectedTargetCurrency != null && currency.id == selectedOriginCurrency!!.id) {
+                                            selectedOriginCurrency =selectedTargetCurrency
+                                        }
                                         selectedTargetCurrency = currency
-                                        if(selectedOriginCurrency != selectedTargetCurrency){
-                                            selectedLastCurrency = selectedTargetCurrency
-                                        }
-
-                                        if(selectedOriginCurrency != null && selectedLastCurrency != null && selectedOriginCurrency == selectedTargetCurrency) {
-                                            selectedOriginCurrency = selectedLastCurrency
-                                        }
                                         expandedTarget = false
                                     })
                                 }
