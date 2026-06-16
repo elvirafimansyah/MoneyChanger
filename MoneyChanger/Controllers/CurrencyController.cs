@@ -77,42 +77,22 @@ namespace MoneyChanger.Controllers
             }).ToList());
         }
 
-        //[HttpGet("exchange-rate/{originCurrencyId}/{targetCurrencyId}/{amount}")]
-        //public IActionResult CalculateExchange(int originCurrencyId, int targetCurrencyId, decimal amount)
-        //{
-        //    if (amount < 1) return BadRequest("Amount must larger than 0");
-        //    var currency1 = dbc.Currencies.FirstOrDefault(x => x.Id == originCurrencyId);
-        //    if (currency1 == null) return NotFound("Origin currency is not found");
-        //    var currency2 = dbc.Currencies.FirstOrDefault(x => x.Id == targetCurrencyId);
-        //    if (currency2 == null) return NotFound("Target currency is not found");
-
-        //    var usdRateCurrencyOrigin = dbc.UsdRates.FirstOrDefault(x => x.CurrencyId == originCurrencyId);
-        //    if (usdRateCurrencyOrigin == null) return NotFound("USD Rate's origin currency is not found");
-
-        //    var usdRateCurrencyTarget = dbc.UsdRates.FirstOrDefault(x => x.CurrencyId == targetCurrencyId);
-        //    if (usdRateCurrencyTarget == null) return NotFound("USD Rate's origin currency is not found");
-
-        //    decimal conversationRate = Math.Round((decimal)usdRateCurrencyTarget.Rate / (decimal)usdRateCurrencyOrigin.Rate, 10);
-        //    var minusRate = conversationRate - (conversationRate * 10 / 100);
-        //    var plusRate = conversationRate + (conversationRate * 10 / 100);
-        //    Random random = new Random();
-        //    var options = new[] { minusRate, plusRate };
-        //    int randomInt = random.Next(options.Length);
-        //    decimal realRate = (decimal)options[randomInt];
-
-        //    decimal nominalResult = Math.Round(realRate * amount, 3);
-        //    //decimal realConvertsationRate = conversationRate 
-        //    return Ok(new
-        //    {
-        //        convertsationRate = conversationRate,
-        //        realRate = realRate,
-        //        nominalResult = nominalResult
-        //    });
-        //}
-        [HttpGet("exchange-rate/{originCurrencyRate}/{targetCurrencyRate}/{amount}")]
-        public IActionResult CalculateExchange(decimal originCurrencyRate, decimal targetCurrencyRate, decimal amount)
+        [HttpGet("exchange-rate/{originCurrencyId}/{targetCurrencyId}/{amount}")]
+        public IActionResult CalculateExchange(int originCurrencyId, int targetCurrencyId, decimal amount)
         {
-            decimal conversationRate = Math.Round(targetCurrencyRate / originCurrencyRate, 10);
+            if (amount < 1) return BadRequest("Amount must larger than 0");
+            var currency1 = dbc.Currencies.FirstOrDefault(x => x.Id == originCurrencyId);
+            if (currency1 == null) return NotFound("Origin currency is not found");
+            var currency2 = dbc.Currencies.FirstOrDefault(x => x.Id == targetCurrencyId);
+            if (currency2 == null) return NotFound("Target currency is not found");
+
+            var usdRateCurrencyOrigin = dbc.UsdRates.FirstOrDefault(x => x.CurrencyId == originCurrencyId);
+            if (usdRateCurrencyOrigin == null) return NotFound("USD Rate's origin currency is not found");
+
+            var usdRateCurrencyTarget = dbc.UsdRates.FirstOrDefault(x => x.CurrencyId == targetCurrencyId);
+            if (usdRateCurrencyTarget == null) return NotFound("USD Rate's origin currency is not found");
+
+            decimal conversationRate = Math.Round((decimal)usdRateCurrencyTarget.Rate / (decimal)usdRateCurrencyOrigin.Rate, 10);
             var minusRate = conversationRate - (conversationRate * 10 / 100);
             var plusRate = conversationRate + (conversationRate * 10 / 100);
             Random random = new Random();
@@ -129,6 +109,7 @@ namespace MoneyChanger.Controllers
                 nominalResult = nominalResult
             });
         }
+        
 
         [HttpPost("order")]
         public IActionResult Order(OrderDTO input)
@@ -168,6 +149,27 @@ namespace MoneyChanger.Controllers
 
             return sb.ToString();
         }
+
+        //[HttpGet("exchange-rate/{originCurrencyRate}/{targetCurrencyRate}/{amount}")]
+        //public IActionResult CalculateExchange(decimal originCurrencyRate, decimal targetCurrencyRate, decimal amount)
+        //{
+        //    decimal conversationRate = Math.Round(targetCurrencyRate / originCurrencyRate, 10);
+        //    var minusRate = conversationRate - (conversationRate * 10 / 100);
+        //    var plusRate = conversationRate + (conversationRate * 10 / 100);
+        //    Random random = new Random();
+        //    var options = new[] { minusRate, plusRate };
+        //    int randomInt = random.Next(options.Length);
+        //    decimal realRate = (decimal)options[randomInt];
+
+        //    decimal nominalResult = Math.Round(realRate * amount, 3);
+        //    //decimal realConvertsationRate = conversationRate 
+        //    return Ok(new
+        //    {
+        //        convertsationRate = conversationRate,
+        //        realRate = realRate,
+        //        nominalResult = nominalResult
+        //    });
+        //}
     }
 
     public class ExchangeRateDTO

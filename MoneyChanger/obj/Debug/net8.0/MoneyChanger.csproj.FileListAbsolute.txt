@@ -145,3 +145,4 @@ C:\Elvira\Web API\MoneyChanger\MoneyChanger\obj\Debug\net8.0\refint\MoneyChanger
 C:\Elvira\Web API\MoneyChanger\MoneyChanger\obj\Debug\net8.0\MoneyChanger.pdb
 C:\Elvira\Web API\MoneyChanger\MoneyChanger\obj\Debug\net8.0\MoneyChanger.genruntimeconfig.cache
 C:\Elvira\Web API\MoneyChanger\MoneyChanger\obj\Debug\net8.0\ref\MoneyChanger.dll
+C:\Elvira\Web API\MoneyChanger\MoneyChanger\obj\Debug\net8.0\MoneyChanger.sourcelink.json

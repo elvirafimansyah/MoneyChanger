@@ -75,28 +75,28 @@
         }
       }
     },
-    "/api/currency/exchange-rate/{originCurrencyRate}/{targetCurrencyRate}/{amount}": {
+    "/api/currency/exchange-rate/{originCurrencyId}/{targetCurrencyId}/{amount}": {
       "get": {
         "tags": [
           "Currency"
         ],
         "parameters": [
           {
-            "name": "originCurrencyRate",
+            "name": "originCurrencyId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
-            "name": "targetCurrencyRate",
+            "name": "targetCurrencyId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           },
           {

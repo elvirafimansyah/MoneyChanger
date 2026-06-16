@@ -28,19 +28,19 @@
   {
     "ContainingType": "MoneyChanger.Controllers.CurrencyController",
     "Method": "CalculateExchange",
-    "RelativePath": "api/currency/exchange-rate/{originCurrencyRate}/{targetCurrencyRate}/{amount}",
+    "RelativePath": "api/currency/exchange-rate/{originCurrencyId}/{targetCurrencyId}/{amount}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "originCurrencyRate",
-        "Type": "System.Decimal",
+        "Name": "originCurrencyId",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "targetCurrencyRate",
-        "Type": "System.Decimal",
+        "Name": "targetCurrencyId",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
