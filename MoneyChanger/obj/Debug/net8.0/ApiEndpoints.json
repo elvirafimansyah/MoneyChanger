@@ -1,0 +1,96 @@
+[
+  {
+    "ContainingType": "MoneyChanger.Controllers.CurrencyController",
+    "Method": "GetAll",
+    "RelativePath": "api/currency",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MoneyChanger.Controllers.CurrencyController",
+    "Method": "GetDetail",
+    "RelativePath": "api/currency/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MoneyChanger.Controllers.CurrencyController",
+    "Method": "CalculateExchange",
+    "RelativePath": "api/currency/exchange-rate/{originCurrencyRate}/{targetCurrencyRate}/{amount}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "originCurrencyRate",
+        "Type": "System.Decimal",
+        "IsRequired": true
+      },
+      {
+        "Name": "targetCurrencyRate",
+        "Type": "System.Decimal",
+        "IsRequired": true
+      },
+      {
+        "Name": "amount",
+        "Type": "System.Decimal",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MoneyChanger.Controllers.CurrencyController",
+    "Method": "Order",
+    "RelativePath": "api/currency/order",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "input",
+        "Type": "MoneyChanger.Controllers.OrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MoneyChanger.Controllers.CurrencyController",
+    "Method": "GetOrders",
+    "RelativePath": "api/currency/orders",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MoneyChanger.Controllers.CurrencyController",
+    "Method": "GetUSDRate",
+    "RelativePath": "api/currency/usd-rate/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

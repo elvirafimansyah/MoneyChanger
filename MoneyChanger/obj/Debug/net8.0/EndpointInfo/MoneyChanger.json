@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MoneyChanger",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/currency": {
+      "get": {
+        "tags": [
+          "Currency"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/currency/{id}": {
+      "get": {
+        "tags": [
+          "Currency"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/currency/usd-rate/{id}": {
+      "get": {
+        "tags": [
+          "Currency"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/currency/orders": {
+      "get": {
+        "tags": [
+          "Currency"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/currency/exchange-rate/{originCurrencyRate}/{targetCurrencyRate}/{amount}": {
+      "get": {
+        "tags": [
+          "Currency"
+        ],
+        "parameters": [
+          {
+            "name": "originCurrencyRate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "targetCurrencyRate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/currency/order": {
+      "post": {
+        "tags": [
+          "Currency"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OrderDTO": {
+        "required": [
+          "convertsationRate",
+          "originCurrencyId",
+          "originNominal",
+          "targetCurrencyId",
+          "targetNominal"
+        ],
+        "type": "object",
+        "properties": {
+          "originCurrencyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "targetCurrencyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "convertsationRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "originNominal": {
+            "type": "number",
+            "format": "double"
+          },
+          "targetNominal": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
